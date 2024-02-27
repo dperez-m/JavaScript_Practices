@@ -1,0 +1,65 @@
+<html lang="es">
+
+<head>
+    <title>JSON</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        table,
+        td {
+            border: black solid 1pt;
+        }
+        thead {
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1> Inserta Alumnos </h1>
+
+        <form id="formalumnos">
+            <fieldset>
+                <legend>Alumnos</legend>
+                <p>
+                    <input type="text" id="Nombre"/>
+                    <label for="Nombre">Nombre</label>
+                </p>
+                <p>
+                    <input type="text" id="Direccion" />
+                    <label for="Direccion">Dirección</label>
+                </p>
+                <p>
+                    <input type="text" id="Dni" />
+                    <label for="Dni">DNI</label>
+                </p>
+                <p>
+                    <input type="submit" value="Guardar" id="guardar"/>
+                    <input type="button" value="Mostrar" id="mostrar"/>
+                   
+                </p>
+            </fieldset>
+
+        </form>
+
+        <div id="alumnos">
+            
+        </div>
+
+        <br>
+        <br>
+        <form id="formborraralumnos">
+            <fieldset>
+                <legend>Eliminar alumnos</legend>
+                <input type="text" id="removeAlumno" />
+                <input type="button" value="Borrar" id="borrar"/>
+            </fieldset>
+        </form>
+       
+        <script type="text/javascript" src="p2_ud3.js">
+        </script>
+</body>
+
+</html>
