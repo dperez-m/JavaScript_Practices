@@ -18,15 +18,6 @@ class Alumno {
     get direccion() {
         return this._direccion;
     }
-
-    modificar(){
-        this._nombreA = NOMBRE;
-        this._direccion = DIRECCION;
-    }
-
-    mostrar() {
-
-    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -36,9 +27,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const dni = document.getElementById("Dni");
     const mostrar = document.getElementById("alumnos");
     const botonMostrar = document.getElementById("mostrar");
+    const botonBorrar = document.getElementById("borrar");
+    const alumnoAEliminar = document.getElementById("removeAlumno");
 
     form.addEventListener("submit", guardarAlumno);
     botonMostrar.addEventListener("click", mostrarAlumnos);
+    botonBorrar.addEventListener("click", eliminarAlumno);
 
     function guardarAlumno() {
         const alumno = new Alumno(nombre.value, dni.value, direccion.value);
@@ -46,7 +40,9 @@ window.addEventListener('DOMContentLoaded', () => {
         alert(`Se ha guardado el alumno ${alumno.nombreA} correctamente.`);
     }
     function mostrarAlumnos() {
+        eliminarTabla();
         let tabla = document.createElement("table");
+        tabla.setAttribute("id", "tablaAlumnos");
         let th = document.createElement("thead");
         let tbody = document.createElement("tbody");
         let thDni = document.createElement("td");
@@ -79,5 +75,37 @@ window.addEventListener('DOMContentLoaded', () => {
             tabla.appendChild(tbody);
         }
         mostrar.appendChild(tabla);
+        tabla.addEventListener("contextmenu", modificarAlumno);
+    }
+
+    function modificarAlumno(event){
+        let alumnoKey = event.target.parentNode.children[0];
+        if (localStorage.getItem(alumnoKey.innerHTML)) {
+            event.preventDefault();
+            let alumnoAModificar = JSON.parse(localStorage.getItem(alumnoKey.innerHTML));
+            nombre.value = alumnoAModificar._nombreA;
+            direccion.value = alumnoAModificar._direccion;
+            dni.value = alumnoAModificar._dni;
+            dni.readOnly = true;
+            dni.style.opacity = "0.7";
+            document.getElementById("guardar").value = "Modificar";
+        }
+    }
+
+    function eliminarAlumno(){
+        for (let i = 0; i < localStorage.length; i++){
+            let alumno = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            if (alumno._dni === alumnoAEliminar.value){
+                localStorage.removeItem(localStorage.key(i));
+            }
+        }
+        mostrarAlumnos();
+    }
+
+    function eliminarTabla(){
+        if (document.getElementById("tablaAlumnos")){
+            let tabla = document.getElementById("tablaAlumnos");
+            mostrar.removeChild(tabla);
+        }
     }
 });
